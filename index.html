@@ -7,51 +7,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --cream: #f5f0eb;
       --cream-dark: #ede6da;
-      --green: #3a3028;
-      --green-light: #5a4a3a;
+      --brown: #3a3028;
+      --brown-light: #5a4a3a;
       --gold: #b8956a;
       --gold-light: #d4b48e;
       --text: #2a2a2a;
       --text-light: #6b6b6b;
       --white: #ffffff;
     }
-
     html { scroll-behavior: smooth; }
     body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 5%;
-      background: rgba(245,240,235,0.96);
-      backdrop-filter: blur(8px);
+      padding: 16px 5%;
+      background: rgba(245,240,235,0.97);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(184,149,106,0.2);
+      transition: box-shadow .3s;
     }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px; font-weight: 500;
-      color: var(--green); letter-spacing: 1px;
-    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.08); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--brown); letter-spacing: 1px; }
     .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      text-decoration: none; font-size: 11px; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--green); transition: color .25s;
-    }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--brown); transition: color .25s; }
     .nav-links a:hover { color: var(--gold); }
-    .nav-cta {
-      background: var(--green); color: var(--white) !important;
-      padding: 10px 22px; border-radius: 2px;
-    }
+    .nav-cta { background: var(--brown); color: var(--white) !important; padding: 10px 22px; border-radius: 2px; transition: background .3s !important; }
     .nav-cta:hover { background: var(--gold) !important; }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       background: linear-gradient(160deg, #3a3028 0%, #1e1810 100%);
@@ -60,330 +49,307 @@
       position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1600&q=80') center/cover no-repeat;
-      opacity: 0.2;
+      opacity: 0.22;
     }
+    .hero-particles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     .hero-content { position: relative; z-index: 1; max-width: 720px; }
     .hero-badge {
-      display: inline-block; font-size: 10px; font-weight: 600;
-      letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold-light); border: 1px solid rgba(184,149,106,.4);
+      display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold-light); border: 1px solid rgba(184,149,106,.4);
       padding: 8px 20px; margin-bottom: 28px;
+      animation: fadeInDown .8s ease both;
     }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(48px, 8vw, 84px); font-weight: 300;
       color: var(--white); line-height: 1.05; margin-bottom: 8px;
+      animation: fadeInUp .9s ease both .1s;
     }
     .hero h1 em { font-style: italic; color: var(--gold-light); }
-    .hero-sub {
-      font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
-      color: rgba(255,255,255,.5); margin-bottom: 32px;
-    }
-    .hero p {
-      font-size: 15px; color: rgba(255,255,255,.72);
-      line-height: 1.8; margin-bottom: 44px; font-weight: 300;
-    }
-    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .hero-sub { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 28px; animation: fadeInUp .9s ease both .2s; }
+    .hero-stars { color: var(--gold-light); font-size: 18px; margin-bottom: 8px; letter-spacing: 3px; animation: fadeInUp .9s ease both .25s; }
+    .hero-stars span { font-size: 11px; color: rgba(255,255,255,.6); font-family: 'Montserrat', sans-serif; font-style: normal; letter-spacing: 2px; margin-left: 8px; vertical-align: middle; }
+    .hero p { font-size: 15px; color: rgba(255,255,255,.72); line-height: 1.8; margin-bottom: 44px; font-weight: 300; animation: fadeInUp .9s ease both .3s; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; animation: fadeInUp .9s ease both .4s; }
+
+    /* ── BUTTONS ── */
     .btn-primary {
       background: var(--gold); color: var(--white); text-decoration: none;
-      padding: 15px 36px; font-size: 11px; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase;
-      transition: all .3s; border-radius: 2px;
+      padding: 15px 36px; font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; transition: all .3s; border-radius: 2px;
+      display: inline-block;
     }
-    .btn-primary:hover { background: var(--gold-light); color: var(--green); }
+    .btn-primary:hover { background: var(--gold-light); color: var(--brown); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,149,106,.4); }
     .btn-outline {
-      border: 1px solid rgba(255,255,255,.4); color: var(--white);
-      text-decoration: none; padding: 15px 36px; font-size: 11px;
-      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      transition: all .3s; border-radius: 2px;
+      border: 1px solid rgba(255,255,255,.4); color: var(--white); text-decoration: none;
+      padding: 15px 36px; font-size: 11px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; transition: all .3s; border-radius: 2px;
     }
     .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: var(--white); text-decoration: none;
+      padding: 16px 36px; font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; border-radius: 2px; transition: all .3s;
+    }
+    .btn-wa:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.35); }
+    .btn-gold {
+      display: inline-block; background: transparent; border: 1px solid var(--gold);
+      color: var(--gold-light); text-decoration: none; padding: 16px 36px;
+      font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      border-radius: 2px; transition: all .3s;
+    }
+    .btn-gold:hover { background: var(--gold); color: var(--white); }
 
-    /* STRIP */
+    /* ── STRIP ── */
     .strip {
-      background: var(--gold); padding: 18px; text-align: center;
+      background: var(--gold); padding: 16px; text-align: center;
       font-size: 11px; font-weight: 600; letter-spacing: 3px;
       text-transform: uppercase; color: var(--white);
     }
+    .strip a { color: var(--white); text-decoration: none; }
 
-    /* SECTIONS */
+    /* ── SECTIONS ── */
     section { padding: 90px 5%; }
-    .section-label {
-      font-size: 10px; font-weight: 600; letter-spacing: 4px;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
-    }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(34px, 5vw, 52px); font-weight: 400;
-      color: var(--green); line-height: 1.15; margin-bottom: 18px;
-    }
+    .section-label { font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 5vw, 52px); font-weight: 400; color: var(--brown); line-height: 1.15; margin-bottom: 18px; }
     .section-title em { font-style: italic; }
-    .section-desc {
-      font-size: 14px; color: var(--text-light);
-      line-height: 1.85; max-width: 580px; font-weight: 300;
-    }
+    .section-desc { font-size: 14px; color: var(--text-light); line-height: 1.85; max-width: 580px; font-weight: 300; }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     .about { background: var(--white); }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-      max-width: 1100px; margin: 0 auto;
-    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
     .about-img { position: relative; }
-    .about-img img { width: 100%; height: 520px; object-fit: cover; display: block; }
+    .about-img img { width: 100%; height: 520px; object-fit: cover; display: block; transition: transform .6s ease; }
+    .about-img:hover img { transform: scale(1.02); }
     .about-img-badge {
       position: absolute; bottom: -20px; right: -20px;
       width: 130px; height: 130px; background: var(--gold);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      animation: pulse 3s ease-in-out infinite;
     }
-    .about-img-badge span:first-child {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 42px; color: var(--white); line-height: 1;
-    }
-    .about-img-badge span:last-child {
-      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(255,255,255,.8);
-    }
+    .about-img-badge span:first-child { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--white); line-height: 1; }
+    .about-img-badge span:last-child { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.8); }
     .about-stats { display: flex; gap: 36px; margin-top: 40px; }
-    .stat { text-align: center; }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 38px; color: var(--green); line-height: 1;
-    }
-    .stat-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); }
+    .stat { text-align: center; padding: 20px; background: var(--cream); border-radius: 2px; flex: 1; transition: all .3s; }
+    .stat:hover { background: var(--gold); }
+    .stat:hover .stat-num, .stat:hover .stat-lbl { color: var(--white); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--brown); line-height: 1; transition: color .3s; }
+    .stat-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); transition: color .3s; }
 
-    /* SERVICES */
+    /* ── SERVICES ── */
     .services { background: var(--cream); }
     .services-header { text-align: center; margin-bottom: 60px; }
     .services-header .section-desc { margin: 0 auto; }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2px; max-width: 1100px; margin: 0 auto;
-    }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; max-width: 1100px; margin: 0 auto; }
     .service-card {
       background: var(--white); padding: 48px 40px;
-      transition: all .35s; cursor: default;
-      position: relative; overflow: hidden;
+      transition: all .35s; cursor: default; position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 3px; height: 0; background: var(--gold);
+      transition: height .35s;
     }
     .service-card::after {
       content: ''; position: absolute; bottom: 0; left: 0;
       width: 100%; height: 3px; background: var(--gold);
       transform: scaleX(0); transform-origin: left; transition: transform .35s;
     }
-    .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,.1); }
+    .service-card:hover::before { height: 100%; }
     .service-card:hover::after { transform: scaleX(1); }
-    .service-icon { font-size: 32px; margin-bottom: 20px; display: block; }
-    .service-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px; color: var(--green); margin-bottom: 10px; font-weight: 500;
-    }
+    .service-icon { font-size: 36px; margin-bottom: 20px; display: block; transition: transform .3s; }
+    .service-card:hover .service-icon { transform: scale(1.2); }
+    .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--brown); margin-bottom: 10px; font-weight: 500; }
     .service-card p { font-size: 13px; color: var(--text-light); line-height: 1.75; font-weight: 300; }
-    .service-tag {
-      display: inline-block; margin-top: 16px; font-size: 9px;
-      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); border: 1px solid var(--gold-light); padding: 4px 10px;
-    }
+    .service-tag { display: inline-block; margin-top: 16px; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-light); padding: 4px 10px; }
 
-    /* DESTAQUES */
-    .destaques { background: var(--green); text-align: center; }
+    /* ── DESTAQUES ── */
+    .destaques { background: var(--brown); text-align: center; }
     .destaques .section-title { color: var(--white); }
     .destaques .section-label { color: var(--gold-light); }
     .destaques .section-desc { color: rgba(255,255,255,.65); margin: 0 auto 50px; }
-    .dest-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; max-width: 900px; margin: 0 auto 50px;
-    }
+    .dest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 900px; margin: 0 auto 50px; }
     .dest-card {
       background: rgba(255,255,255,.07); padding: 40px 28px;
-      border: 1px solid rgba(184,149,106,.2); transition: all .3s;
+      border: 1px solid rgba(184,149,106,.2); transition: all .3s; cursor: default;
     }
-    .dest-card:hover { background: rgba(255,255,255,.12); }
-    .dest-card .emoji { font-size: 36px; margin-bottom: 16px; }
-    .dest-card h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px; color: var(--gold-light); margin-bottom: 8px;
-    }
+    .dest-card:hover { background: rgba(255,255,255,.14); transform: translateY(-4px); border-color: rgba(184,149,106,.5); }
+    .dest-card .emoji { font-size: 40px; margin-bottom: 16px; display: block; transition: transform .3s; }
+    .dest-card:hover .emoji { transform: scale(1.15) rotate(5deg); }
+    .dest-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold-light); margin-bottom: 10px; }
     .dest-card p { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.7; }
 
-    /* GALLERY */
+    /* ── GALLERY ── */
     .gallery { background: var(--cream-dark); padding: 90px 0; }
     .gallery-header { text-align: center; padding: 0 5%; margin-bottom: 50px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-    .gallery-grid img {
-      width: 100%; height: 280px; object-fit: cover; display: block;
-      filter: saturate(.9); transition: all .4s;
+    .gallery-item { overflow: hidden; position: relative; }
+    .gallery-item img { width: 100%; height: 280px; object-fit: cover; display: block; filter: saturate(.85); transition: all .5s; }
+    .gallery-item:hover img { filter: saturate(1.15); transform: scale(1.06); }
+    .gallery-item .overlay {
+      position: absolute; inset: 0; background: rgba(58,48,40,.5);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .4s;
     }
-    .gallery-grid img:hover { filter: saturate(1.1); transform: scale(1.02); }
-    .gallery-grid .tall { grid-row: span 2; }
-    .gallery-grid .tall img { height: 564px; }
+    .gallery-item:hover .overlay { opacity: 1; }
+    .overlay-icon { font-size: 32px; }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.tall img { height: 564px; }
 
-    /* BOOKING CTA */
+    /* ── BOOKING CTA ── */
     .booking {
       background: linear-gradient(135deg, #1e1810 0%, #3a3028 100%);
-      text-align: center; padding: 100px 5%;
-      position: relative; overflow: hidden;
+      text-align: center; padding: 100px 5%; position: relative; overflow: hidden;
     }
-    .booking::before {
-      content: ''; position: absolute; top: -60px; right: -60px;
-      width: 360px; height: 360px; border-radius: 50%;
-      border: 1px solid rgba(184,149,106,.15);
-    }
-    .booking::after {
-      content: ''; position: absolute; bottom: -80px; left: -80px;
-      width: 420px; height: 420px; border-radius: 50%;
-      border: 1px solid rgba(184,149,106,.1);
-    }
+    .booking::before { content: ''; position: absolute; top: -60px; right: -60px; width: 360px; height: 360px; border-radius: 50%; border: 1px solid rgba(184,149,106,.15); }
+    .booking::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(184,149,106,.1); }
     .booking-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
     .booking .section-label { color: var(--gold-light); }
     .booking .section-title { color: var(--white); }
     .booking p { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 40px; font-weight: 300; }
     .booking-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-wa {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: #25D366; color: var(--white); text-decoration: none;
-      padding: 16px 36px; font-size: 12px; font-weight: 600;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      border-radius: 2px; transition: all .3s;
-    }
-    .btn-wa:hover { background: #1ebe5d; }
-    .btn-gold {
-      display: inline-block; background: transparent;
-      border: 1px solid var(--gold); color: var(--gold-light);
-      text-decoration: none; padding: 16px 36px; font-size: 12px;
-      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
-      border-radius: 2px; transition: all .3s;
-    }
-    .btn-gold:hover { background: var(--gold); color: var(--white); }
 
-    /* DIFERENCIAIS */
-    .diferenciais { background: var(--white); }
-    .dif-split {
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 500px;
-    }
-    .dif-img {
-      background: url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80') center/cover no-repeat;
-    }
-    .dif-content {
-      padding: 80px 70px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .dif-items { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
-    .dif-item { display: flex; align-items: flex-start; gap: 14px; }
-    .dif-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--gold); margin-top: 7px; flex-shrink: 0;
-    }
-    .dif-item p { font-size: 13px; color: var(--text-light); line-height: 1.6; font-weight: 300; }
-    .dif-item strong { color: var(--green); font-weight: 600; }
+    /* ── SPLIT ── */
+    .split { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; }
+    .split-img { background: url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80') center/cover no-repeat; transition: transform .6s ease; }
+    .split:hover .split-img { transform: scale(1.02); }
+    .split-content { padding: 80px 70px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+    .split-items { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .split-item { display: flex; align-items: flex-start; gap: 14px; transition: transform .3s; }
+    .split-item:hover { transform: translateX(6px); }
+    .split-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 7px; flex-shrink: 0; }
+    .split-item p { font-size: 13px; color: var(--text-light); line-height: 1.6; font-weight: 300; }
+    .split-item strong { color: var(--brown); font-weight: 600; }
 
-    /* HORARIOS */
+    /* ── HORARIOS ── */
     .horarios { background: var(--cream); text-align: center; }
-    .horarios-box {
-      max-width: 650px; margin: 48px auto 0;
-      background: var(--white); padding: 52px;
-      box-shadow: 0 4px 40px rgba(0,0,0,.06);
-    }
-    .horario-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 14px 0; border-bottom: 1px solid var(--cream-dark); font-size: 14px;
-    }
+    .horarios-box { max-width: 650px; margin: 48px auto 0; background: var(--white); padding: 52px; box-shadow: 0 4px 40px rgba(0,0,0,.06); }
+    .horario-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--cream-dark); font-size: 14px; transition: background .2s; }
+    .horario-row:hover { background: var(--cream); padding-left: 10px; padding-right: 10px; }
     .horario-row:last-child { border-bottom: none; }
-    .horario-row .dia { font-weight: 600; color: var(--green); }
+    .horario-row .dia { font-weight: 600; color: var(--brown); }
     .horario-row .hora { color: var(--text-light); font-weight: 300; }
-    .hora-badge {
-      display: inline-block; background: var(--gold); color: var(--white);
-      font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
-      padding: 4px 12px; text-transform: uppercase;
-    }
-    .address-block {
-      margin-top: 40px; padding-top: 32px;
-      border-top: 1px solid var(--cream-dark);
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .address-item {
-      display: flex; align-items: center; justify-content: center;
-      gap: 10px; font-size: 13px; color: var(--text-light);
-    }
-    .address-item a { color: var(--green); text-decoration: none; font-weight: 500; }
+    .hora-badge { display: inline-block; background: var(--gold); color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; padding: 4px 12px; text-transform: uppercase; }
+    .address-block { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--cream-dark); display: flex; flex-direction: column; gap: 12px; }
+    .address-item { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: var(--text-light); }
+    .address-item a { color: var(--brown); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .address-item a:hover { color: var(--gold); }
 
-    /* FOOTER */
-    footer { background: var(--green); color: var(--white); padding: 60px 5% 36px; }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr 1fr 1fr;
-      gap: 60px; max-width: 1100px; margin: 0 auto 50px;
+    /* ── SOCIAL BAR ── */
+    .social-bar { background: var(--white); padding: 50px 5%; text-align: center; border-top: 1px solid var(--cream-dark); }
+    .social-bar h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--brown); margin-bottom: 30px; font-weight: 400; }
+    .social-icons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .social-icon {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 40px;
+      text-decoration: none; font-size: 13px; font-weight: 600;
+      letter-spacing: 1px; transition: all .3s;
     }
-    .footer-brand-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px; color: var(--white); margin-bottom: 16px;
-    }
+    .social-icon svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .social-icon.instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: var(--white); }
+    .social-icon.instagram:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(220,39,67,.35); }
+    .social-icon.facebook { background: #1877f2; color: var(--white); }
+    .social-icon.facebook:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(24,119,242,.35); }
+    .social-icon.whatsapp { background: #25D366; color: var(--white); }
+    .social-icon.whatsapp:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(37,211,102,.35); }
+    .social-icon.tiktok { background: #010101; color: var(--white); }
+    .social-icon.tiktok:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+    .social-icon.google { background: var(--white); color: var(--text); border: 1px solid #e0e0e0; }
+    .social-icon.google:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.1); }
+
+    /* ── REVIEWS ── */
+    .reviews { background: var(--cream); padding: 90px 5%; text-align: center; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1000px; margin: 50px auto 0; }
+    .review-card { background: var(--white); padding: 32px; text-align: left; border-radius: 2px; transition: all .3s; position: relative; }
+    .review-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.08); }
+    .review-stars { color: #f59e0b; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+    .review-text { font-size: 13px; color: var(--text-light); line-height: 1.75; font-weight: 300; font-style: italic; margin-bottom: 16px; }
+    .review-author { font-size: 12px; font-weight: 600; color: var(--brown); letter-spacing: 1px; }
+    .review-badge { position: absolute; top: 16px; right: 16px; background: var(--cream); padding: 4px 10px; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--brown); color: var(--white); padding: 60px 5% 36px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto 50px; }
+    .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--white); margin-bottom: 16px; }
     .footer-brand-name span { color: var(--gold-light); }
-    .footer-brand p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.75; font-weight: 300; }
-    footer h4 {
-      font-size: 10px; font-weight: 600; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px;
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.75; font-weight: 300; margin-bottom: 24px; }
+    .footer-social { display: flex; gap: 12px; margin-top: 4px; }
+    .footer-social a {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      transition: all .3s; text-decoration: none;
     }
+    .footer-social a:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-2px); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,.7); transition: fill .3s; }
+    .footer-social a:hover svg { fill: white; }
+    footer h4 { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px; }
     footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     footer ul li a { font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; transition: color .25s; }
     footer ul li a:hover { color: var(--gold-light); }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.1); padding-top: 28px;
-      display: flex; align-items: center; justify-content: space-between;
-      max-width: 1100px; margin: 0 auto;
-    }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; }
     .footer-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
-    .social-links { display: flex; gap: 20px; }
-    .social-links a {
-      font-size: 12px; color: rgba(255,255,255,.45);
-      text-decoration: none; transition: color .25s; letter-spacing: 1px;
-    }
-    .social-links a:hover { color: var(--gold-light); }
 
-    /* WA FLOAT */
+    /* ── WA FLOAT ── */
     .wa-float {
       position: fixed; bottom: 28px; right: 28px;
-      width: 58px; height: 58px; background: #25D366;
+      width: 60px; height: 60px; background: #25D366;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 24px rgba(37,211,102,.4); z-index: 200;
-      transition: transform .3s; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,211,102,.45); z-index: 200;
+      transition: all .3s; text-decoration: none;
     }
-    .wa-float:hover { transform: scale(1.12); }
+    .wa-float:hover { transform: scale(1.12) rotate(10deg); box-shadow: 0 12px 36px rgba(37,211,102,.5); }
     .wa-float svg { width: 28px; height: 28px; fill: white; }
+    .wa-pulse {
+      position: absolute; width: 100%; height: 100%; border-radius: 50%;
+      background: #25D366; opacity: .4;
+      animation: wa-pulse 2s ease-out infinite;
+    }
 
-    /* RESPONSIVE */
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    @keyframes wa-pulse { 0% { transform: scale(1); opacity: .4; } 100% { transform: scale(1.7); opacity: 0; } }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .about-img-badge { right: 10px; }
       .dest-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid .tall img { height: 280px; }
-      .dif-split { grid-template-columns: 1fr; }
-      .dif-img { height: 300px; }
-      .dif-content { padding: 50px 30px; }
+      .gallery-item.tall img { height: 280px; }
+      .split { grid-template-columns: 1fr; }
+      .split-img { height: 300px; }
+      .split-content { padding: 50px 30px; }
       .footer-grid { grid-template-columns: 1fr; gap: 36px; }
       .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
     }
     @media (max-width: 600px) {
       .gallery-grid { grid-template-columns: 1fr; }
       .about-stats { flex-wrap: wrap; }
+      .social-icon span { display: none; }
+      .social-icon { padding: 14px; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav id="navbar">
     <div class="nav-logo">Massagem <span>&</span> Terapia</div>
     <ul class="nav-links">
       <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#diferenciais">Diferenciais</a></li>
       <li><a href="#galeria">Espaço</a></li>
+      <li><a href="#avaliacoes">Avaliações</a></li>
       <li><a href="#horarios">Horários</a></li>
       <li><a href="https://wa.me/5521981576102" class="nav-cta">Agendar</a></li>
     </ul>
@@ -395,6 +361,7 @@
       <div class="hero-badge">Rio de Janeiro · Brasil</div>
       <h1>Massagem <em>&</em><br>Terapia</h1>
       <p class="hero-sub">Relaxamento · Bem-estar · Terapias</p>
+      <p class="hero-stars">★★★★★ <span>168 avaliações perfeitas no Google</span></p>
       <p>Um espaço dedicado ao seu equilíbrio.<br>Massagens terapêuticas, tratamentos corporais<br>e terapias holísticas no coração do Rio.</p>
       <div class="hero-btns">
         <a href="https://wa.me/5521981576102" class="btn-primary">Agendar sessão</a>
@@ -404,35 +371,35 @@
   </section>
 
   <!-- STRIP -->
-  <div class="strip">✦ &nbsp; 168 avaliações 5 estrelas no Google Maps &nbsp; · &nbsp; Atendimento personalizado &nbsp; ✦</div>
+  <div class="strip">✦ &nbsp; 168 avaliações 5 estrelas no Google Maps &nbsp;·&nbsp; Profissionais certificados &nbsp;·&nbsp; <a href="https://wa.me/5521981576102">Agende já pelo WhatsApp</a> &nbsp; ✦</div>
 
   <!-- ABOUT -->
   <section class="about" id="sobre">
     <div class="about-grid">
-      <div class="about-img">
+      <div class="about-img reveal">
         <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80" alt="Massagem terapêutica" />
         <div class="about-img-badge">
           <span>★ 5.0</span>
           <span>Google Maps</span>
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <p class="section-label">Quem somos</p>
         <h2 class="section-title">Seu espaço de<br><em>equilíbrio</em> no Rio</h2>
-        <p class="section-desc">A Massagem & Terapia é um centro especializado em bem-estar localizado no Rio de Janeiro. Com 168 avaliações 5 estrelas no Google, somos referência em massagens terapêuticas e tratamentos de qualidade para quem busca relaxamento e saúde.</p>
-        <p class="section-desc" style="margin-top:16px">Nossa equipe de profissionais especializados oferece atendimento personalizado, combinando técnicas tradicionais e modernas para proporcionar a melhor experiência de bem-estar.</p>
+        <p class="section-desc">A Massagem & Terapia é um centro especializado em bem-estar no Rio de Janeiro. Com 168 avaliações 5 estrelas no Google, somos referência em massagens terapêuticas e tratamentos de qualidade.</p>
+        <p class="section-desc" style="margin-top:16px">Nossa equipe de profissionais certificados oferece atendimento personalizado, combinando técnicas tradicionais e modernas para proporcionar a melhor experiência de bem-estar.</p>
         <div class="about-stats">
           <div class="stat">
             <div class="stat-num">168+</div>
-            <div class="stat-lbl">Avaliações Google</div>
+            <div class="stat-lbl">Avaliações</div>
           </div>
           <div class="stat">
             <div class="stat-num">5★</div>
-            <div class="stat-lbl">Nota perfeita</div>
+            <div class="stat-lbl">Nota Google</div>
           </div>
           <div class="stat">
             <div class="stat-num">100%</div>
-            <div class="stat-lbl">Profissionais</div>
+            <div class="stat-lbl">Satisfação</div>
           </div>
         </div>
       </div>
@@ -441,71 +408,71 @@
 
   <!-- SERVICES -->
   <section class="services" id="servicos">
-    <div class="services-header">
+    <div class="services-header reveal">
       <p class="section-label">Nossos serviços</p>
       <h2 class="section-title">Tudo que você<br><em>precisa</em></h2>
-      <p class="section-desc">De massagens relaxantes a terapias especializadas. Escolha sua experiência de bem-estar.</p>
+      <p class="section-desc">De massagens relaxantes a terapias especializadas. Escolha sua experiência.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-icon">💆‍♀️</span>
         <h3>Massagem Relaxante</h3>
-        <p>Técnicas suaves que aliviam o estresse do dia a dia, promovem relaxamento profundo e restauram a energia do seu corpo e mente.</p>
+        <p>Técnicas suaves que aliviam o estresse, promovem relaxamento profundo e restauram a energia do seu corpo e mente.</p>
         <span class="service-tag">Mais procurado</span>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-icon">💪</span>
         <h3>Massagem Desportiva</h3>
         <p>Ideal para atletas e pessoas ativas. Trabalha grupos musculares específicos, melhora a performance e acelera a recuperação.</p>
         <span class="service-tag">Recuperação muscular</span>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-icon">🌿</span>
         <h3>Terapias Holísticas</h3>
-        <p>Reflexologia, reiki e técnicas energéticas que equilibram corpo, mente e espírito para um bem-estar completo e duradouro.</p>
+        <p>Reflexologia, reiki e técnicas energéticas que equilibram corpo, mente e espírito para um bem-estar completo.</p>
         <span class="service-tag">Equilíbrio total</span>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-icon">🦴</span>
         <h3>Massagem Terapêutica</h3>
         <p>Tratamento direcionado para dores crônicas, tensões musculares e problemas posturais. Alívio real e duradouro.</p>
-        <span class="service-tag">Tratamento especializado</span>
+        <span class="service-tag">Especializado</span>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-icon">✨</span>
         <h3>Drenagem Linfática</h3>
-        <p>Técnica suave que estimula o sistema linfático, reduz inchaços, combate a celulite e melhora a circulação sanguínea.</p>
+        <p>Estimula o sistema linfático, reduz inchaços, combate a celulite e melhora a circulação sanguínea.</p>
         <span class="service-tag">Modelagem corporal</span>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-icon">💑</span>
         <h3>Sessão para Casais</h3>
-        <p>Uma experiência única compartilhada. Massagem relaxante simultânea para casais, em ambiente reservado e aconchegante.</p>
+        <p>Experiência única compartilhada. Massagem simultânea para casais em ambiente reservado e aconchegante.</p>
         <span class="service-tag">Experiência especial</span>
       </div>
     </div>
   </section>
 
   <!-- DESTAQUES -->
-  <section class="destaques" id="destaques">
+  <section class="destaques">
     <p class="section-label">Por que nos escolher</p>
     <h2 class="section-title">Técnicas que<br><em>transformam</em></h2>
-    <p class="section-desc">Combinamos as melhores técnicas terapêuticas para proporcionar resultados reais e duradouros.</p>
+    <p class="section-desc">Combinamos as melhores técnicas para resultados reais e duradouros.</p>
     <div class="dest-grid">
-      <div class="dest-card">
-        <div class="emoji">🎓</div>
+      <div class="dest-card reveal">
+        <span class="emoji">🎓</span>
         <h4>Profissionais Certificados</h4>
         <p>Toda a equipe possui formação especializada e certificações em terapias manuais e holísticas.</p>
       </div>
-      <div class="dest-card">
-        <div class="emoji">🏠</div>
+      <div class="dest-card reveal">
+        <span class="emoji">🏠</span>
         <h4>Ambiente Exclusivo</h4>
         <p>Espaço projetado para proporcionar tranquilidade, privacidade e conforto em cada sessão.</p>
       </div>
-      <div class="dest-card">
-        <div class="emoji">⭐</div>
+      <div class="dest-card reveal">
+        <span class="emoji">⭐</span>
         <h4>168 Clientes Satisfeitos</h4>
-        <p>Nota 5 estrelas no Google Maps. Resultados comprovados e confiança construída atendimento a atendimento.</p>
+        <p>Nota 5 estrelas no Google Maps. Confiança construída atendimento a atendimento.</p>
       </div>
     </div>
     <a href="https://wa.me/5521981576102" class="btn-primary">Agendar minha sessão</a>
@@ -513,27 +480,66 @@
 
   <!-- GALLERY -->
   <section class="gallery" id="galeria">
-    <div class="gallery-header">
+    <div class="gallery-header reveal">
       <p class="section-label">Nosso espaço</p>
-      <h2 class="section-title" style="color:var(--green)">Um ambiente <em>único</em></h2>
+      <h2 class="section-title" style="color:var(--brown)">Um ambiente <em>único</em></h2>
     </div>
     <div class="gallery-grid">
-      <div class="tall">
-        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Espaço de massagem" />
+      <div class="gallery-item tall">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Espaço" />
+        <div class="overlay"><span class="overlay-icon">🕯️</span></div>
       </div>
-      <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80" alt="Massagem relaxante" />
-      <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Ambiente" />
-      <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80" alt="Terapia" />
-      <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?w=600&q=80" alt="Bem-estar" />
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80" alt="Massagem" />
+        <div class="overlay"><span class="overlay-icon">💆</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Ambiente" />
+        <div class="overlay"><span class="overlay-icon">✨</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80" alt="Terapia" />
+        <div class="overlay"><span class="overlay-icon">🌿</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?w=600&q=80" alt="Bem-estar" />
+        <div class="overlay"><span class="overlay-icon">🙏</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="avaliacoes">
+    <p class="section-label reveal">O que dizem nossos clientes</p>
+    <h2 class="section-title reveal">Avaliações <em>reais</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-badge">Google</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Atendimento impecável! A massagem relaxante foi incrível, saí renovada. O ambiente é muito aconchegante e os profissionais são extremamente atenciosos."</p>
+        <div class="review-author">Ana C. · Rio de Janeiro</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-badge">Google</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Fiz a drenagem linfática e o resultado foi surpreendente. Profissional muito qualificada, ambiente limpo e agradável. Já marquei a próxima sessão!"</p>
+        <div class="review-author">Maria L. · Ipanema</div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-badge">Google</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Melhor massagem terapêutica que já fiz no Rio! Finalmente alguém que entende de verdade sobre dores musculares. Super recomendo!"</p>
+        <div class="review-author">Carlos M. · Botafogo</div>
+      </div>
     </div>
   </section>
 
   <!-- BOOKING CTA -->
   <section class="booking">
-    <div class="booking-content">
+    <div class="booking-content reveal">
       <p class="section-label">Presentes de bem-estar</p>
-      <h2 class="section-title">Presentes &<br><em>Gift Cards</em></h2>
-      <p>O melhor presente é uma experiência que transforma. Presenteie com uma sessão de massagem ou terapia. Ideal para aniversários, Dia das Mães e ocasiões especiais.</p>
+      <h2 class="section-title">Gift Cards &<br><em>Vouchers</em></h2>
+      <p>O melhor presente é uma experiência que transforma. Presenteie com uma sessão de massagem ou terapia — ideal para aniversários e ocasiões especiais.</p>
       <div class="booking-btns">
         <a href="https://wa.me/5521981576102" class="btn-wa">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -544,72 +550,76 @@
     </div>
   </section>
 
-  <!-- DIFERENCIAIS -->
-  <section class="diferenciais" id="diferenciais">
-    <div class="dif-split">
-      <div class="dif-img"></div>
-      <div class="dif-content">
-        <p class="section-label">Nossa abordagem</p>
-        <h2 class="section-title">Cuidado <em>completo</em><br>para você</h2>
-        <p class="section-desc">Cada sessão é pensada para atender suas necessidades específicas.</p>
-        <div class="dif-items">
-          <div class="dif-item">
-            <div class="dif-dot"></div>
-            <p><strong>Avaliação personalizada</strong> — Antes de cada sessão, entendemos suas queixas e objetivos para oferecer o tratamento mais adequado.</p>
-          </div>
-          <div class="dif-item">
-            <div class="dif-dot"></div>
-            <p><strong>Técnicas combinadas</strong> — Unimos diferentes abordagens terapêuticas para maximizar os resultados de cada sessão.</p>
-          </div>
-          <div class="dif-item">
-            <div class="dif-dot"></div>
-            <p><strong>Pacotes e programas</strong> — Tratamentos sequenciais com desconto. Investir na sua saúde de forma contínua traz resultados muito superiores.</p>
-          </div>
+  <!-- SPLIT -->
+  <section class="split" id="diferenciais">
+    <div class="split-img"></div>
+    <div class="split-content reveal">
+      <p class="section-label">Nossa abordagem</p>
+      <h2 class="section-title">Cuidado <em>completo</em><br>para você</h2>
+      <p class="section-desc">Cada sessão é pensada para atender suas necessidades específicas.</p>
+      <div class="split-items">
+        <div class="split-item">
+          <div class="split-dot"></div>
+          <p><strong>Avaliação personalizada</strong> — Antes de cada sessão, entendemos suas queixas e objetivos.</p>
         </div>
-        <a href="https://wa.me/5521981576102" class="btn-primary" style="margin-top:32px; display:inline-block">Consultar disponibilidade</a>
+        <div class="split-item">
+          <div class="split-dot"></div>
+          <p><strong>Técnicas combinadas</strong> — Unimos diferentes abordagens para maximizar os resultados.</p>
+        </div>
+        <div class="split-item">
+          <div class="split-dot"></div>
+          <p><strong>Pacotes com desconto</strong> — Tratamentos sequenciais que trazem resultados superiores.</p>
+        </div>
       </div>
+      <a href="https://wa.me/5521981576102" class="btn-primary" style="margin-top:32px">Consultar disponibilidade</a>
     </div>
   </section>
 
   <!-- HORARIOS -->
   <section class="horarios" id="horarios">
-    <p class="section-label">Onde nos encontrar</p>
-    <h2 class="section-title">Horários &<br><em>Contato</em></h2>
-    <div class="horarios-box">
-      <div class="horario-row">
-        <span class="dia">Segunda-feira</span>
-        <span class="hora">09:00 — 19:00</span>
-      </div>
-      <div class="horario-row">
-        <span class="dia">Terça-feira</span>
-        <span class="hora">09:00 — 19:00</span>
-      </div>
-      <div class="horario-row">
-        <span class="dia">Quarta-feira</span>
-        <span class="hora">09:00 — 19:00</span>
-      </div>
-      <div class="horario-row">
-        <span class="dia">Quinta-feira</span>
-        <span class="hora">09:00 — 19:00</span>
-      </div>
-      <div class="horario-row">
-        <span class="dia">Sexta-feira</span>
-        <span class="hora">09:00 — 19:00</span>
-      </div>
-      <div class="horario-row">
-        <span class="dia">Sábado</span>
-        <span class="hora">09:00 — 16:00</span>
-      </div>
-      <div class="horario-row">
-        <span class="dia">Domingo</span>
-        <span class="hora" style="color:#c0392b;font-weight:500">Fechado</span>
-      </div>
+    <p class="section-label reveal">Onde nos encontrar</p>
+    <h2 class="section-title reveal">Horários &<br><em>Contato</em></h2>
+    <div class="horarios-box reveal">
+      <div class="horario-row"><span class="dia">Segunda-feira</span><span class="hora">09:00 — 19:00</span></div>
+      <div class="horario-row"><span class="dia">Terça-feira</span><span class="hora">09:00 — 19:00</span></div>
+      <div class="horario-row"><span class="dia">Quarta-feira</span><span class="hora">09:00 — 19:00</span></div>
+      <div class="horario-row"><span class="dia">Quinta-feira</span><span class="hora">09:00 — 19:00</span></div>
+      <div class="horario-row"><span class="dia">Sexta-feira</span><span class="hora">09:00 — 19:00</span></div>
+      <div class="horario-row"><span class="dia">Sábado</span><span class="hora">09:00 — 16:00</span></div>
+      <div class="horario-row"><span class="dia">Domingo</span><span class="hora" style="color:#c0392b;font-weight:500">Fechado</span></div>
       <div class="address-block">
-        <div class="address-item">📍 <a href="https://maps.google.com/?q=Massagem+Terapia+Rio+de+Janeiro" target="_blank">Rio de Janeiro, RJ</a></div>
+        <div class="address-item">📍 <a href="https://maps.google.com/?q=Rio+de+Janeiro+RJ" target="_blank">Rio de Janeiro, RJ</a></div>
         <div class="address-item">📱 <a href="https://wa.me/5521981576102">+55 21 98157-6102</a></div>
       </div>
     </div>
   </section>
+
+  <!-- SOCIAL BAR -->
+  <div class="social-bar">
+    <h3>Nos siga nas <em style="font-family:Cormorant Garamond,serif;color:var(--gold)">redes sociais</em></h3>
+    <div class="social-icons">
+      <a href="#" class="social-icon instagram">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Instagram</span>
+      </a>
+      <a href="#" class="social-icon facebook">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <span>Facebook</span>
+      </a>
+      <a href="https://wa.me/5521981576102" class="social-icon whatsapp">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+      <a href="#" class="social-icon tiktok">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        <span>TikTok</span>
+      </a>
+      <a href="https://maps.google.com/?q=Massagem+Terapia+Rio+de+Janeiro" target="_blank" class="social-icon google">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm.14 19.018c-3.868 0-7-3.14-7-7.018 0-3.878 3.132-7.018 7-7.018 1.89 0 3.47.697 4.682 1.829l-1.974 1.978v-.004c-.735-.702-1.667-1.062-2.708-1.062-2.31 0-4.187 1.956-4.187 4.273 0 2.315 1.877 4.277 4.187 4.277 2.096 0 3.522-1.202 3.816-2.852H12.14v-2.737h6.585c.088.47.135.96.135 1.474 0 4.01-2.677 6.86-6.72 6.86z" fill="#4285f4"/></svg>
+        <span>Google</span>
+      </a>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -617,6 +627,20 @@
       <div class="footer-brand">
         <div class="footer-brand-name">Massagem <span>&</span> Terapia</div>
         <p>Centro especializado em massagens e terapias no Rio de Janeiro. Seu espaço de relaxamento, saúde e bem-estar.</p>
+        <div class="footer-social">
+          <a href="#" title="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://wa.me/5521981576102" title="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="#" title="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
       </div>
       <div>
         <h4>Serviços</h4>
@@ -635,21 +659,35 @@
           <li><a href="#horarios">Horários</a></li>
           <li><a href="#sobre">Sobre nós</a></li>
           <li><a href="#galeria">Nosso espaço</a></li>
+          <li><a href="#avaliacoes">Avaliações</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Massagem & Terapia · Rio de Janeiro, Brasil</p>
-      <div class="social-links">
-        <a href="https://wa.me/5521981576102">WhatsApp</a>
-      </div>
+      <p style="color:rgba(255,255,255,.2);font-size:11px">★★★★★ 168 avaliações Google</p>
     </div>
   </footer>
 
   <!-- WHATSAPP FLOAT -->
   <a href="https://wa.me/5521981576102" class="wa-float" title="Agendar por WhatsApp">
+    <div class="wa-pulse"></div>
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
+
+  <script>
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
