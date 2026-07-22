@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Massagem & Terapia | Rio de Janeiro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0eb;
+      --cream-dark: #ede6da;
+      --green: #3a3028;
+      --green-light: #5a4a3a;
+      --gold: #b8956a;
+      --gold-light: #d4b48e;
+      --text: #2a2a2a;
+      --text-light: #6b6b6b;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(245,240,235,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(184,149,106,0.2);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 500;
+      color: var(--green); letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 11px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--green); transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--green); color: var(--white) !important;
+      padding: 10px 22px; border-radius: 2px;
+    }
+    .nav-cta:hover { background: var(--gold) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #3a3028 0%, #1e1810 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 5% 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=1600&q=80') center/cover no-repeat;
+      opacity: 0.2;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 720px; }
+    .hero-badge {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold-light); border: 1px solid rgba(184,149,106,.4);
+      padding: 8px 20px; margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 84px); font-weight: 300;
+      color: var(--white); line-height: 1.05; margin-bottom: 8px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-sub {
+      font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+      color: rgba(255,255,255,.5); margin-bottom: 32px;
+    }
+    .hero p {
+      font-size: 15px; color: rgba(255,255,255,.72);
+      line-height: 1.8; margin-bottom: 44px; font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--white); text-decoration: none;
+      padding: 15px 36px; font-size: 11px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: all .3s; border-radius: 2px;
+    }
+    .btn-primary:hover { background: var(--gold-light); color: var(--green); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.4); color: var(--white);
+      text-decoration: none; padding: 15px 36px; font-size: 11px;
+      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      transition: all .3s; border-radius: 2px;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+    /* STRIP */
+    .strip {
+      background: var(--gold); padding: 18px; text-align: center;
+      font-size: 11px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--white);
+    }
+
+    /* SECTIONS */
+    section { padding: 90px 5%; }
+    .section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 5vw, 52px); font-weight: 400;
+      color: var(--green); line-height: 1.15; margin-bottom: 18px;
+    }
+    .section-title em { font-style: italic; }
+    .section-desc {
+      font-size: 14px; color: var(--text-light);
+      line-height: 1.85; max-width: 580px; font-weight: 300;
+    }
+
+    /* ABOUT */
+    .about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .about-img { position: relative; }
+    .about-img img { width: 100%; height: 520px; object-fit: cover; display: block; }
+    .about-img-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 130px; height: 130px; background: var(--gold);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+    }
+    .about-img-badge span:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px; color: var(--white); line-height: 1;
+    }
+    .about-img-badge span:last-child {
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,.8);
+    }
+    .about-stats { display: flex; gap: 36px; margin-top: 40px; }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px; color: var(--green); line-height: 1;
+    }
+    .stat-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); }
+
+    /* SERVICES */
+    .services { background: var(--cream); }
+    .services-header { text-align: center; margin-bottom: 60px; }
+    .services-header .section-desc { margin: 0 auto; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2px; max-width: 1100px; margin: 0 auto;
+    }
+    .service-card {
+      background: var(--white); padding: 48px 40px;
+      transition: all .35s; cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 3px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left; transition: transform .35s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; color: var(--green); margin-bottom: 10px; font-weight: 500;
+    }
+    .service-card p { font-size: 13px; color: var(--text-light); line-height: 1.75; font-weight: 300; }
+    .service-tag {
+      display: inline-block; margin-top: 16px; font-size: 9px;
+      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--gold-light); padding: 4px 10px;
+    }
+
+    /* DESTAQUES */
+    .destaques { background: var(--green); text-align: center; }
+    .destaques .section-title { color: var(--white); }
+    .destaques .section-label { color: var(--gold-light); }
+    .destaques .section-desc { color: rgba(255,255,255,.65); margin: 0 auto 50px; }
+    .dest-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; max-width: 900px; margin: 0 auto 50px;
+    }
+    .dest-card {
+      background: rgba(255,255,255,.07); padding: 40px 28px;
+      border: 1px solid rgba(184,149,106,.2); transition: all .3s;
+    }
+    .dest-card:hover { background: rgba(255,255,255,.12); }
+    .dest-card .emoji { font-size: 36px; margin-bottom: 16px; }
+    .dest-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; color: var(--gold-light); margin-bottom: 8px;
+    }
+    .dest-card p { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+    /* GALLERY */
+    .gallery { background: var(--cream-dark); padding: 90px 0; }
+    .gallery-header { text-align: center; padding: 0 5%; margin-bottom: 50px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .gallery-grid img {
+      width: 100%; height: 280px; object-fit: cover; display: block;
+      filter: saturate(.9); transition: all .4s;
+    }
+    .gallery-grid img:hover { filter: saturate(1.1); transform: scale(1.02); }
+    .gallery-grid .tall { grid-row: span 2; }
+    .gallery-grid .tall img { height: 564px; }
+
+    /* BOOKING CTA */
+    .booking {
+      background: linear-gradient(135deg, #1e1810 0%, #3a3028 100%);
+      text-align: center; padding: 100px 5%;
+      position: relative; overflow: hidden;
+    }
+    .booking::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 360px; height: 360px; border-radius: 50%;
+      border: 1px solid rgba(184,149,106,.15);
+    }
+    .booking::after {
+      content: ''; position: absolute; bottom: -80px; left: -80px;
+      width: 420px; height: 420px; border-radius: 50%;
+      border: 1px solid rgba(184,149,106,.1);
+    }
+    .booking-content { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .booking .section-label { color: var(--gold-light); }
+    .booking .section-title { color: var(--white); }
+    .booking p { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 40px; font-weight: 300; }
+    .booking-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: var(--white); text-decoration: none;
+      padding: 16px 36px; font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      border-radius: 2px; transition: all .3s;
+    }
+    .btn-wa:hover { background: #1ebe5d; }
+    .btn-gold {
+      display: inline-block; background: transparent;
+      border: 1px solid var(--gold); color: var(--gold-light);
+      text-decoration: none; padding: 16px 36px; font-size: 12px;
+      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      border-radius: 2px; transition: all .3s;
+    }
+    .btn-gold:hover { background: var(--gold); color: var(--white); }
+
+    /* DIFERENCIAIS */
+    .diferenciais { background: var(--white); }
+    .dif-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+    }
+    .dif-img {
+      background: url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=900&q=80') center/cover no-repeat;
+    }
+    .dif-content {
+      padding: 80px 70px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .dif-items { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .dif-item { display: flex; align-items: flex-start; gap: 14px; }
+    .dif-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); margin-top: 7px; flex-shrink: 0;
+    }
+    .dif-item p { font-size: 13px; color: var(--text-light); line-height: 1.6; font-weight: 300; }
+    .dif-item strong { color: var(--green); font-weight: 600; }
+
+    /* HORARIOS */
+    .horarios { background: var(--cream); text-align: center; }
+    .horarios-box {
+      max-width: 650px; margin: 48px auto 0;
+      background: var(--white); padding: 52px;
+      box-shadow: 0 4px 40px rgba(0,0,0,.06);
+    }
+    .horario-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid var(--cream-dark); font-size: 14px;
+    }
+    .horario-row:last-child { border-bottom: none; }
+    .horario-row .dia { font-weight: 600; color: var(--green); }
+    .horario-row .hora { color: var(--text-light); font-weight: 300; }
+    .hora-badge {
+      display: inline-block; background: var(--gold); color: var(--white);
+      font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+      padding: 4px 12px; text-transform: uppercase;
+    }
+    .address-block {
+      margin-top: 40px; padding-top: 32px;
+      border-top: 1px solid var(--cream-dark);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .address-item {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; font-size: 13px; color: var(--text-light);
+    }
+    .address-item a { color: var(--green); text-decoration: none; font-weight: 500; }
+
+    /* FOOTER */
+    footer { background: var(--green); color: var(--white); padding: 60px 5% 36px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px; max-width: 1100px; margin: 0 auto 50px;
+    }
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; color: var(--white); margin-bottom: 16px;
+    }
+    .footer-brand-name span { color: var(--gold-light); }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.75; font-weight: 300; }
+    footer h4 {
+      font-size: 10px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px;
+    }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    footer ul li a { font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none; transition: color .25s; }
+    footer ul li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
+    .social-links { display: flex; gap: 20px; }
+    .social-links a {
+      font-size: 12px; color: rgba(255,255,255,.45);
+      text-decoration: none; transition: color .25s; letter-spacing: 1px;
+    }
+    .social-links a:hover { color: var(--gold-light); }
+
+    /* WA FLOAT */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 58px; height: 58px; background: #25D366;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,.4); z-index: 200;
+      transition: transform .3s; text-decoration: none;
+    }
+    .wa-float:hover { transform: scale(1.12); }
+    .wa-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-img-badge { right: 10px; }
+      .dest-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid .tall img { height: 280px; }
+      .dif-split { grid-template-columns: 1fr; }
+      .dif-img { height: 300px; }
+      .dif-content { padding: 50px 30px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .about-stats { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Massagem <span>&</span> Terapia</div>
+    <ul class="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#diferenciais">Diferenciais</a></li>
+      <li><a href="#galeria">Espaço</a></li>
+      <li><a href="#horarios">Horários</a></li>
+      <li><a href="https://wa.me/5521981576102" class="nav-cta">Agendar</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Rio de Janeiro · Brasil</div>
+      <h1>Massagem <em>&</em><br>Terapia</h1>
+      <p class="hero-sub">Relaxamento · Bem-estar · Terapias</p>
+      <p>Um espaço dedicado ao seu equilíbrio.<br>Massagens terapêuticas, tratamentos corporais<br>e terapias holísticas no coração do Rio.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/5521981576102" class="btn-primary">Agendar sessão</a>
+        <a href="#servicos" class="btn-outline">Ver serviços</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">✦ &nbsp; 168 avaliações 5 estrelas no Google Maps &nbsp; · &nbsp; Atendimento personalizado &nbsp; ✦</div>
+
+  <!-- ABOUT -->
+  <section class="about" id="sobre">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80" alt="Massagem terapêutica" />
+        <div class="about-img-badge">
+          <span>★ 5.0</span>
+          <span>Google Maps</span>
+        </div>
+      </div>
+      <div>
+        <p class="section-label">Quem somos</p>
+        <h2 class="section-title">Seu espaço de<br><em>equilíbrio</em> no Rio</h2>
+        <p class="section-desc">A Massagem & Terapia é um centro especializado em bem-estar localizado no Rio de Janeiro. Com 168 avaliações 5 estrelas no Google, somos referência em massagens terapêuticas e tratamentos de qualidade para quem busca relaxamento e saúde.</p>
+        <p class="section-desc" style="margin-top:16px">Nossa equipe de profissionais especializados oferece atendimento personalizado, combinando técnicas tradicionais e modernas para proporcionar a melhor experiência de bem-estar.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">168+</div>
+            <div class="stat-lbl">Avaliações Google</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">5★</div>
+            <div class="stat-lbl">Nota perfeita</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-lbl">Profissionais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="servicos">
+    <div class="services-header">
+      <p class="section-label">Nossos serviços</p>
+      <h2 class="section-title">Tudo que você<br><em>precisa</em></h2>
+      <p class="section-desc">De massagens relaxantes a terapias especializadas. Escolha sua experiência de bem-estar.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">💆‍♀️</span>
+        <h3>Massagem Relaxante</h3>
+        <p>Técnicas suaves que aliviam o estresse do dia a dia, promovem relaxamento profundo e restauram a energia do seu corpo e mente.</p>
+        <span class="service-tag">Mais procurado</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💪</span>
+        <h3>Massagem Desportiva</h3>
+        <p>Ideal para atletas e pessoas ativas. Trabalha grupos musculares específicos, melhora a performance e acelera a recuperação.</p>
+        <span class="service-tag">Recuperação muscular</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌿</span>
+        <h3>Terapias Holísticas</h3>
+        <p>Reflexologia, reiki e técnicas energéticas que equilibram corpo, mente e espírito para um bem-estar completo e duradouro.</p>
+        <span class="service-tag">Equilíbrio total</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🦴</span>
+        <h3>Massagem Terapêutica</h3>
+        <p>Tratamento direcionado para dores crônicas, tensões musculares e problemas posturais. Alívio real e duradouro.</p>
+        <span class="service-tag">Tratamento especializado</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✨</span>
+        <h3>Drenagem Linfática</h3>
+        <p>Técnica suave que estimula o sistema linfático, reduz inchaços, combate a celulite e melhora a circulação sanguínea.</p>
+        <span class="service-tag">Modelagem corporal</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💑</span>
+        <h3>Sessão para Casais</h3>
+        <p>Uma experiência única compartilhada. Massagem relaxante simultânea para casais, em ambiente reservado e aconchegante.</p>
+        <span class="service-tag">Experiência especial</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUES -->
+  <section class="destaques" id="destaques">
+    <p class="section-label">Por que nos escolher</p>
+    <h2 class="section-title">Técnicas que<br><em>transformam</em></h2>
+    <p class="section-desc">Combinamos as melhores técnicas terapêuticas para proporcionar resultados reais e duradouros.</p>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <div class="emoji">🎓</div>
+        <h4>Profissionais Certificados</h4>
+        <p>Toda a equipe possui formação especializada e certificações em terapias manuais e holísticas.</p>
+      </div>
+      <div class="dest-card">
+        <div class="emoji">🏠</div>
+        <h4>Ambiente Exclusivo</h4>
+        <p>Espaço projetado para proporcionar tranquilidade, privacidade e conforto em cada sessão.</p>
+      </div>
+      <div class="dest-card">
+        <div class="emoji">⭐</div>
+        <h4>168 Clientes Satisfeitos</h4>
+        <p>Nota 5 estrelas no Google Maps. Resultados comprovados e confiança construída atendimento a atendimento.</p>
+      </div>
+    </div>
+    <a href="https://wa.me/5521981576102" class="btn-primary">Agendar minha sessão</a>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="galeria">
+    <div class="gallery-header">
+      <p class="section-label">Nosso espaço</p>
+      <h2 class="section-title" style="color:var(--green)">Um ambiente <em>único</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="tall">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Espaço de massagem" />
+      </div>
+      <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80" alt="Massagem relaxante" />
+      <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Ambiente" />
+      <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80" alt="Terapia" />
+      <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?w=600&q=80" alt="Bem-estar" />
+    </div>
+  </section>
+
+  <!-- BOOKING CTA -->
+  <section class="booking">
+    <div class="booking-content">
+      <p class="section-label">Presentes de bem-estar</p>
+      <h2 class="section-title">Presentes &<br><em>Gift Cards</em></h2>
+      <p>O melhor presente é uma experiência que transforma. Presenteie com uma sessão de massagem ou terapia. Ideal para aniversários, Dia das Mães e ocasiões especiais.</p>
+      <div class="booking-btns">
+        <a href="https://wa.me/5521981576102" class="btn-wa">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Comprar Gift Card
+        </a>
+        <a href="https://wa.me/5521981576102" class="btn-gold">Agendar sessão</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section class="diferenciais" id="diferenciais">
+    <div class="dif-split">
+      <div class="dif-img"></div>
+      <div class="dif-content">
+        <p class="section-label">Nossa abordagem</p>
+        <h2 class="section-title">Cuidado <em>completo</em><br>para você</h2>
+        <p class="section-desc">Cada sessão é pensada para atender suas necessidades específicas.</p>
+        <div class="dif-items">
+          <div class="dif-item">
+            <div class="dif-dot"></div>
+            <p><strong>Avaliação personalizada</strong> — Antes de cada sessão, entendemos suas queixas e objetivos para oferecer o tratamento mais adequado.</p>
+          </div>
+          <div class="dif-item">
+            <div class="dif-dot"></div>
+            <p><strong>Técnicas combinadas</strong> — Unimos diferentes abordagens terapêuticas para maximizar os resultados de cada sessão.</p>
+          </div>
+          <div class="dif-item">
+            <div class="dif-dot"></div>
+            <p><strong>Pacotes e programas</strong> — Tratamentos sequenciais com desconto. Investir na sua saúde de forma contínua traz resultados muito superiores.</p>
+          </div>
+        </div>
+        <a href="https://wa.me/5521981576102" class="btn-primary" style="margin-top:32px; display:inline-block">Consultar disponibilidade</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORARIOS -->
+  <section class="horarios" id="horarios">
+    <p class="section-label">Onde nos encontrar</p>
+    <h2 class="section-title">Horários &<br><em>Contato</em></h2>
+    <div class="horarios-box">
+      <div class="horario-row">
+        <span class="dia">Segunda-feira</span>
+        <span class="hora">09:00 — 19:00</span>
+      </div>
+      <div class="horario-row">
+        <span class="dia">Terça-feira</span>
+        <span class="hora">09:00 — 19:00</span>
+      </div>
+      <div class="horario-row">
+        <span class="dia">Quarta-feira</span>
+        <span class="hora">09:00 — 19:00</span>
+      </div>
+      <div class="horario-row">
+        <span class="dia">Quinta-feira</span>
+        <span class="hora">09:00 — 19:00</span>
+      </div>
+      <div class="horario-row">
+        <span class="dia">Sexta-feira</span>
+        <span class="hora">09:00 — 19:00</span>
+      </div>
+      <div class="horario-row">
+        <span class="dia">Sábado</span>
+        <span class="hora">09:00 — 16:00</span>
+      </div>
+      <div class="horario-row">
+        <span class="dia">Domingo</span>
+        <span class="hora" style="color:#c0392b;font-weight:500">Fechado</span>
+      </div>
+      <div class="address-block">
+        <div class="address-item">📍 <a href="https://maps.google.com/?q=Massagem+Terapia+Rio+de+Janeiro" target="_blank">Rio de Janeiro, RJ</a></div>
+        <div class="address-item">📱 <a href="https://wa.me/5521981576102">+55 21 98157-6102</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Massagem <span>&</span> Terapia</div>
+        <p>Centro especializado em massagens e terapias no Rio de Janeiro. Seu espaço de relaxamento, saúde e bem-estar.</p>
+      </div>
+      <div>
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#servicos">Massagem Relaxante</a></li>
+          <li><a href="#servicos">Massagem Desportiva</a></li>
+          <li><a href="#servicos">Terapias Holísticas</a></li>
+          <li><a href="#servicos">Drenagem Linfática</a></li>
+          <li><a href="#servicos">Sessão para Casais</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="https://wa.me/5521981576102">WhatsApp</a></li>
+          <li><a href="#horarios">Horários</a></li>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#galeria">Nosso espaço</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Massagem & Terapia · Rio de Janeiro, Brasil</p>
+      <div class="social-links">
+        <a href="https://wa.me/5521981576102">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/5521981576102" class="wa-float" title="Agendar por WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>
